@@ -55,15 +55,15 @@ def starting_player(first_player_name, second_player_name, chosen_player, first_
     for name in [first_player_name, second_player_name]:
         if name not in dict_choice:
             if "Tails" in dict_choice.values():
-                dict_choice[second_player_name] = "Heads"
+                dict_choice[name] = "Heads"
             else:
-                dict_choice[second_player_name] = "Tails"
+                dict_choice[name] = "Tails"
 
-    result = heads_or_tails()
-    if dict_choice[first_player_name] == result:
-        return first_player_name, result, second_player_name
+    H_T_result = heads_or_tails()
+    if dict_choice[first_player_name] == H_T_result:
+        return first_player_name, H_T_result, second_player_name
     else:
-        return second_player_name, result, first_player_name
+        return second_player_name, H_T_result, first_player_name
 
 
 player_one = input("Please enter player's one name: ")
@@ -74,8 +74,12 @@ print(f"Welcome {player_one} and {player_two}. Now your names will be shuffled."
 chosen_player = first_choice(player_one, player_two)
 first_player_to_choose = input(f"{chosen_player} has been chosen to pick Heads or Tails: ")
 first_name, result, second_name = starting_player(player_one, player_two, chosen_player, first_player_to_choose)
-print(f"The result of the coin toss is: {result}. Therefore the player who is going to make the first move is: {name}.")
+print(f"The result of the coin toss is: {result}. Therefore the player who is going to make the first move is: {first_name}.")
 
 board = create_board()
 draw_board(board)
+players_info_dict = {first_name: {"symbol": "X", "turn": True}, player_two: {"symbol": "O", "turn": False}}
+print(f"{first_name}'s symbol is 'X', so {second_name} yours will be 'O'")
+
+
 
