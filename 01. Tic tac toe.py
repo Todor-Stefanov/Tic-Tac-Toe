@@ -30,7 +30,7 @@ def draw_board(board):
     # For-loop which will print the board accordingly
     for i in range(len(board)):
         for j in range(len(board[i])):
-            print(str(board[i][j]), end=" ")
+            print(board[i][j], end=" ")
         print()          # 1 2 3
                          # 4 5 6
                          # 7 8 9
@@ -59,11 +59,23 @@ def starting_player(first_player_name, second_player_name, chosen_player, first_
             else:
                 dict_choice[name] = "Tails"
 
-    H_T_result = heads_or_tails()
-    if dict_choice[first_player_name] == H_T_result:
-        return first_player_name, H_T_result, second_player_name
+    h_t_result = heads_or_tails()
+    if dict_choice[first_player_name] == h_t_result:
+        return first_player_name, h_t_result, second_player_name
     else:
-        return second_player_name, H_T_result, first_player_name
+        return second_player_name, h_t_result, first_player_name
+
+
+def check_diagonals():
+    pass
+
+
+def check_rows():
+    pass
+
+
+def check_columns():
+    pass
 
 
 player_one = input("Please enter player's one name: ")
@@ -75,11 +87,24 @@ chosen_player = first_choice(player_one, player_two)
 first_player_to_choose = input(f"{chosen_player} has been chosen to pick Heads or Tails: ")
 first_name, result, second_name = starting_player(player_one, player_two, chosen_player, first_player_to_choose)
 print(f"The result of the coin toss is: {result}. Therefore the player who is going to make the first move is: {first_name}.")
-
+players_info_dict = {first_name: {"symbol": "X", "turn": True}, second_name: {"symbol": "O", "turn": False}}
+print(f"{first_name}'s symbol is 'X', so {second_name} yours will be 'O'")
+print('-'*13 + "The game begins!" + 13*"-")
 board = create_board()
 draw_board(board)
-players_info_dict = {first_name: {"symbol": "X", "turn": True}, player_two: {"symbol": "O", "turn": False}}
-print(f"{first_name}'s symbol is 'X', so {second_name} yours will be 'O'")
+
+winner = False
+while not winner:
+    for player in players_info_dict.keys():
+        position = int(input(f"{player} choose your position: "))
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if board[i][j] == position:
+                    board[i][j] = players_info_dict[player]["symbol"]
+        draw_board(board)
+        if check_diagonals() or check_rows() or check_columns():
+            winner = True
+            break
 
 
 
