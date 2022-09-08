@@ -1,7 +1,7 @@
 # Although the board could be created on only one line:
 # board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] ,
 # I decided to  make my life unnecessarily a bit more complex
-def draw_board():
+def create_board():
     # Firstly, I am creating a tuple which will contain the numbers
     # of which the players will have to choose where to place their crosses or circles.
     # I chose tuple because this value will not be changed later in the function and therefore
@@ -23,12 +23,18 @@ def draw_board():
         board[board_index].append(num)
         for_loop_counter += 1
 
+    return board
+
+
+def draw_board(board):
     # For-loop which will print the board accordingly
     for i in range(len(board)):
         for j in range(len(board[i])):
-            print(board[i][j], end=" ")
-        print()         # 1 2 3
-                        # 4 5 6
-                        # 7 8 9
+            print(str(board[i][j]), end=" ")
+        print()          # 1 2 3
+                         # 4 5 6
+                         # 7 8 9
 
-draw_board()
+
+board = create_board()
+draw_board(board)
