@@ -36,5 +36,31 @@ def draw_board(board):
                          # 7 8 9
 
 
+def heads_or_tails():
+    import random
+    lst = ["Heads", "Tails"]
+    random.shuffle(lst)
+    return random.choice(lst)
+
+
+def starting_player(first_player_name, second_player_name, first_player_choice):
+    dict_choice = {first_player_name: first_player_choice}
+    if "Tails" in dict_choice.values():
+        dict_choice[second_player_name] = "Heads"
+    else:
+        dict_choice[second_player_name] = "Tails"
+    result = heads_or_tails()
+    if dict_choice[first_player_name] == result:
+        return first_player_name
+    else:
+        return second_player_name
+
+player_one = input("Please enter player's one name: ")
+player_two = input("Please enter player's two name: ")
+print(f"Welcome {player_one} and {player_two}.")
+player_one_choice = input(f"{player_one} please choose Heads or Tails: ")
+print(f"The player who is going to make the first move is : {starting_player(player_one, player_two, player_one_choice)}")
+
 board = create_board()
 draw_board(board)
+
