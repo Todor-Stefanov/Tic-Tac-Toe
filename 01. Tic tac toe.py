@@ -66,8 +66,17 @@ def starting_player(first_player_name, second_player_name, chosen_player, first_
         return second_player_name, h_t_result, first_player_name
 
 
-def check_diagonals():
-    pass
+def check_diagonals(board, symbol):
+    left_diagonal = []
+    for i in range(len(board)):
+        left_diagonal.append(board[i][i])
+    right_diagonal = []
+    for j in range(-1, -4, -1):
+        right_diagonal.append(board[abs(j + 1)][j])
+    if (symbol in left_diagonal and left_diagonal.count(symbol) == 3) or (symbol in right_diagonal and right_diagonal.count(symbol) == 3):
+        return True
+    else:
+        return False
 
 
 def check_rows():
@@ -102,7 +111,7 @@ while not winner:
                 if board[i][j] == position:
                     board[i][j] = players_info_dict[player]["symbol"]
         draw_board(board)
-        if check_diagonals() or check_rows() or check_columns():
+        if check_diagonals(board, players_info_dict[player]["symbol"]) or check_rows() or check_columns():
             winner = True
             break
 
