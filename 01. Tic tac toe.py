@@ -61,18 +61,20 @@ def starting_player(first_player_name, second_player_name, chosen_player, first_
 
     result = heads_or_tails()
     if dict_choice[first_player_name] == result:
-        return first_player_name, result
+        return first_player_name, result, second_player_name
     else:
-        return second_player_name, result
+        return second_player_name, result, first_player_name
 
 
 player_one = input("Please enter player's one name: ")
 player_two = input("Please enter player's two name: ")
-print(f"Welcome {player_one} and {player_two}.\nNow your names will be shuffled.")
+print(f"Welcome {player_one} and {player_two}. Now your names will be shuffled.")
+
+
 chosen_player = first_choice(player_one, player_two)
 first_player_to_choose = input(f"{chosen_player} has been chosen to pick Heads or Tails: ")
-name, result = starting_player(player_one, player_two, chosen_player, first_player_to_choose)
-print(f"The result of the coin toss is: {result}. Therefore the player who is going to make the first move is: {name}")
+first_name, result, second_name = starting_player(player_one, player_two, chosen_player, first_player_to_choose)
+print(f"The result of the coin toss is: {result}. Therefore the player who is going to make the first move is: {name}.")
 
 board = create_board()
 draw_board(board)
