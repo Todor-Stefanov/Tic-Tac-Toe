@@ -79,12 +79,31 @@ def check_diagonals(board, symbol):
         return False
 
 
-def check_rows():
-    pass
+def check_rows(board, symbol):
+    upper_row = board[0]
+    middle_row = board[1]
+    bottom_row = board[2]
+    if (symbol in upper_row and upper_row.count(symbol) == 3) or (symbol in middle_row and middle_row.count(symbol) == 3) or (symbol in bottom_row and bottom_row.count(symbol) == 3):
+        return True
+    else:
+        return False
 
 
-def check_columns():
-    pass
+def check_columns(board, symbol):
+    left_column = []
+    middle_column = []
+    right_column = []
+    for i in range(len(board)):
+        left_column.append(board[i][0])
+        middle_column.append(board[i][1])
+        right_column.append(board[i][2])
+
+    if (symbol in left_column and left_column.count(symbol) == 3) or (
+            symbol in middle_column and middle_column.count(symbol) == 3) or (
+            symbol in right_column and right_column.count(symbol) == 3):
+        return True
+    else:
+        return False
 
 
 player_one = input("Please enter player's one name: ")
@@ -111,7 +130,7 @@ while not winner:
                 if board[i][j] == position:
                     board[i][j] = players_info_dict[player]["symbol"]
         draw_board(board)
-        if check_diagonals(board, players_info_dict[player]["symbol"]) or check_rows() or check_columns():
+        if check_diagonals(board, players_info_dict[player]["symbol"]) or check_rows(board, players_info_dict[player]["symbol"]) or check_columns(board, players_info_dict[player]["symbol"]):
             winner = True
             break
 
