@@ -121,8 +121,9 @@ print('-'*13 + "The game begins!" + 13*"-")
 board = create_board()
 draw_board(board)
 
-winner = False
-while not winner:
+game_over = False
+winner = ''
+while not game_over:
     for player in players_info_dict.keys():
         position = int(input(f"{player} choose your position: "))
         for i in range(len(board)):
@@ -130,9 +131,10 @@ while not winner:
                 if board[i][j] == position:
                     board[i][j] = players_info_dict[player]["symbol"]
         draw_board(board)
+        
         if check_diagonals(board, players_info_dict[player]["symbol"]) or check_rows(board, players_info_dict[player]["symbol"]) or check_columns(board, players_info_dict[player]["symbol"]):
-            winner = True
+            winner = player
+            game_over = True
             break
 
-
-
+print(f"Congratulations {winner}! You are awesome!")
