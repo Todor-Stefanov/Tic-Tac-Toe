@@ -106,6 +106,17 @@ def check_columns(board, symbol):
         return False
 
 
+def check_board_for_space(board):
+    is_space = False
+    for i in range(len(board)):
+        for j in board[i]:
+            if type(j) == int:
+                is_space = True
+    return is_space
+
+
+
+
 player_one = input("Please enter player's one name: ")
 player_two = input("Please enter player's two name: ")
 print(f"Welcome {player_one} and {player_two}. Now your names will be shuffled.")
@@ -122,7 +133,7 @@ board = create_board()
 draw_board(board)
 
 game_over = False
-winner = ''
+
 while not game_over:
     for player in players_info_dict.keys():
         position = int(input(f"{player} choose your position: "))
@@ -131,10 +142,13 @@ while not game_over:
                 if board[i][j] == position:
                     board[i][j] = players_info_dict[player]["symbol"]
         draw_board(board)
-        
+
         if check_diagonals(board, players_info_dict[player]["symbol"]) or check_rows(board, players_info_dict[player]["symbol"]) or check_columns(board, players_info_dict[player]["symbol"]):
-            winner = player
             game_over = True
+            print(f"Congratulations {player}! You are awesome!")
+            break
+        if not check_board_for_space(board):
+            game_over = True
+            print("Draw!")
             break
 
-print(f"Congratulations {winner}! You are awesome!")
