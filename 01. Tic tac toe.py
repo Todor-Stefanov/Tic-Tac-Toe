@@ -137,6 +137,14 @@ game_over = False
 while not game_over:
     for player in players_info_dict.keys():
         position = int(input(f"{player} choose your position: "))
+        if position == "S":
+            print(f"{player} has surrendered!")
+            if player == first_name:
+                print(f"Congratulations {second_name}! You are awesome!")
+            else:
+                print(f"Congratulations {first_name}! You are awesome!")
+            break
+
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if board[i][j] == position:
