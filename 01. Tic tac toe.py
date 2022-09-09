@@ -116,6 +116,7 @@ def check_board_for_space(board):
 
 
 def surrender_check(position, player, first_name, second_name):
+
     if position == "S":
         print(f"{player} has surrendered!")
         if player == first_name:
@@ -125,6 +126,29 @@ def surrender_check(position, player, first_name, second_name):
         return True
 
     return False
+
+
+def position_input(player):
+    is_valid = False
+    position = ''
+    while not is_valid:
+        position = input(f"{player} choose your position: ")
+        try:
+            position = int(position)
+        except:
+            print("Incorrect input")
+            continue
+        if position >= 1 and position <= 9:
+            if available_positions[position] in taken_positions:
+                print(f"{player}, this position is taken!")
+                continue
+            else:
+                is_valid = True
+        else:
+            print(f"{player}, enter a number between 1 and 9.")
+    return position
+
+
 
 
 player_one = input("Please enter player's one name: ")
@@ -141,19 +165,25 @@ print(f"{first_name}'s symbol is 'X', so {second_name} yours will be 'O'")
 print('-'*13 + "The game begins!" + 13*"-")
 board = create_board()
 draw_board(board)
+available_positions = dict()
+counter = 0
+for i in range(len(board)):
+    for j in range(len(board[i])):
+        counter += 1
+        available_positions[counter] = (i, j)
 
 game_over = False
-
+taken_positions = set()
 while not game_over:
     for player in players_info_dict.keys():
-        position = int(input(f"{player} choose your position: "))
+        position = position_input(player)
         if surrender_check(position, player, first_name, second_name):
             break
-
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if board[i][j] == position:
                     board[i][j] = players_info_dict[player]["symbol"]
+                    taken_positions.add((i, j))
         draw_board(board)
 
         if check_diagonals(board, players_info_dict[player]["symbol"]) or check_rows(board, players_info_dict[player]["symbol"]) or check_columns(board, players_info_dict[player]["symbol"]):
