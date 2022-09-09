@@ -1,4 +1,4 @@
-
+![cereal-tic-tac-toe](https://user-images.githubusercontent.com/112066009/189300790-dbf30d31-bf58-4dc5-8478-8b7c0560b5df.gif)
 # Tic Tac Toe
 This simple project could be done on less than 50 lines. But my main goal is to use as many of the basic python components as possiible:
 - For/While loops
@@ -6,11 +6,6 @@ This simple project could be done on less than 50 lines. But my main goal is to 
 - Comprehensions
 - Functios
 - Namespaces
-
-
-<p align="right">
-  <img src="![cereal-tic-tac-toe](https://user-images.githubusercontent.com/112066009/189300790-dbf30d31-bf58-4dc5-8478-8b7c0560b5df.gif)" alt="Tic Tac Toe"/>
-</p>
 
 
 ## Demo
@@ -197,5 +192,6 @@ if surrender_check(position, player, first_name, second_name):
 ![giphy](https://user-images.githubusercontent.com/112066009/189303513-63ee66af-8bd7-472a-9cee-42733fc57d34.gif)
 
 ## Get better at Tic Tac Toe
+![tic-tac-toe-robots](https://user-images.githubusercontent.com/112066009/189304641-37581c8c-6095-4eb9-ace6-57b2b5937960.gif)
 
 https://www.wikihow.com/Win-at-Tic-Tac-Toe
