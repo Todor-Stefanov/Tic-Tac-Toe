@@ -133,6 +133,8 @@ def position_input(player):
     position = ''
     while not is_valid:
         position = input(f"{player} choose your position: ")
+        if position == "S":
+            break
         try:
             position = int(position)
         except:
@@ -178,6 +180,7 @@ while not game_over:
     for player in players_info_dict.keys():
         position = position_input(player)
         if surrender_check(position, player, first_name, second_name):
+            game_over = True
             break
         for i in range(len(board)):
             for j in range(len(board[i])):
