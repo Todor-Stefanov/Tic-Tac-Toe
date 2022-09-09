@@ -37,6 +37,8 @@ def draw_board(board):
 
 
 def first_choice(first_player_name, second_player_name):
+    # In order to make the game as fair as possible, the player who will choose
+    # between Heads or Tails will also be randomly picked.
     import random
     names = [first_player_name, second_player_name]
     random.shuffle(names)
@@ -44,6 +46,7 @@ def first_choice(first_player_name, second_player_name):
 
 
 def heads_or_tails():
+    # A simple function which recreates the famous game Heads or Tails
     import random
     lst = ["Heads", "Tails"]
     random.shuffle(lst)
@@ -51,6 +54,8 @@ def heads_or_tails():
 
 
 def starting_player(first_player_name, second_player_name, chosen_player, first_choice):
+    # Based on the result of the previous function, starting_player() will return the player
+    # first the player who won Heads or Tails, the result, and the player who lost
     dict_choice = {chosen_player: first_choice}
     for name in [first_player_name, second_player_name]:
         if name not in dict_choice:
@@ -65,7 +70,8 @@ def starting_player(first_player_name, second_player_name, chosen_player, first_
     else:
         return second_player_name, h_t_result, first_player_name
 
-
+    # When the next three functions are called, they are going to check the current status of the board
+    # whether there is a winning match or not
 def check_diagonals(board, symbol):
     left_diagonal = []
     for i in range(len(board)):
@@ -107,6 +113,8 @@ def check_columns(board, symbol):
 
 
 def check_board_for_space(board):
+    # In case no one has won the game and there are no free positions on the board
+    # this function will stop the game
     is_space = False
     for i in range(len(board)):
         for j in board[i]:
@@ -115,8 +123,10 @@ def check_board_for_space(board):
     return is_space
 
 
-def surrender_check(position, player, first_name, second_name):
 
+def surrender_check(position, player, first_name, second_name):
+    # In case someone has foreseen his loss,
+    # this function will help that someone surrender
     if position == "S":
         print(f"{player} has surrendered!")
         if player == first_name:
@@ -129,6 +139,7 @@ def surrender_check(position, player, first_name, second_name):
 
 
 def position_input(player):
+    # Looks after a correct position input
     is_valid = False
     position = ''
     while not is_valid:
@@ -151,6 +162,14 @@ def position_input(player):
     return position
 
 
+def fill_available_pos_dict():
+    # I created this function because for the previous one I needed to check somewhere,
+    # whether a certain position has already been chosen or not.
+    counter = 0
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            counter += 1
+            available_positions[counter] = (i, j)
 
 
 player_one = input("Please enter player's one name: ")
@@ -160,19 +179,16 @@ print(f"Welcome {player_one} and {player_two}. Now your names will be shuffled."
 
 chosen_player = first_choice(player_one, player_two)
 first_player_to_choose = input(f"{chosen_player} has been chosen to pick Heads or Tails: ")
+
 first_name, result, second_name = starting_player(player_one, player_two, chosen_player, first_player_to_choose)
 print(f"The result of the coin toss is: {result}. Therefore the player who is going to make the first move is: {first_name}.")
-players_info_dict = {first_name: {"symbol": "X", "turn": True}, second_name: {"symbol": "O", "turn": False}}
+players_info_dict = {first_name: {"symbol": "X"}, second_name: {"symbol": "X"}}
 print(f"{first_name}'s symbol is 'X', so {second_name} yours will be 'O'")
 print('-'*13 + "The game begins!" + 13*"-")
 board = create_board()
 draw_board(board)
 available_positions = dict()
-counter = 0
-for i in range(len(board)):
-    for j in range(len(board[i])):
-        counter += 1
-        available_positions[counter] = (i, j)
+fill_available_pos_dict()
 
 game_over = False
 taken_positions = set()
@@ -189,7 +205,9 @@ while not game_over:
                     taken_positions.add((i, j))
         draw_board(board)
 
-        if check_diagonals(board, players_info_dict[player]["symbol"]) or check_rows(board, players_info_dict[player]["symbol"]) or check_columns(board, players_info_dict[player]["symbol"]):
+        if check_diagonals(board, players_info_dict[player]["symbol"]) \
+                or check_rows(board, players_info_dict[player]["symbol"]) \
+                or check_columns(board, players_info_dict[player]["symbol"]):
             game_over = True
             print(f"Congratulations {player}! You are awesome!")
             break
